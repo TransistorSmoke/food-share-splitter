@@ -21,18 +21,16 @@
               <td class="tbl-cell-item">{{ item.foodItem }}</td>
               <td class="tbl-cell-price">$ {{ item.price }}</td>
               <td class="tbl-cell-count">{{ item.shareCount }}</td>
-              <!-- <td class="tbl-cell-share">
-                {{
-                  item?.price && item?.shareCount
-                    ? '$ ' + (item.price / item.shareCount).toFixed(2)
-                    : ''
-                }}
-              </td> -->
-
-              <td class="tbl-cell-share">{{ calculateShares(item.price, item.shareCount) }}</td>
+              <!-- <td class="tbl-cell-share">{{ calculateShares(item.price, item.shareCount) }}</td> -->
+              <td class="tbl-cell-share">$ {{ calculateShares(item.price, item.shareCount) }}</td>
             </tr>
           </tbody>
         </table>
+
+        <div class="total-shares" v-if="this.shareList.length > 0">
+          <span>Share Per Person: </span>
+          <span>$ {{ calculateTotalShares() }}</span>
+        </div>
       </div>
     </div>
   </div>
@@ -49,7 +47,18 @@ export default {
   },
   methods: {
     calculateShares(price, count) {
-      return price && count ? `$ ${(price / count).toFixed(2)}` : '';
+      return price && count ? (price / count).toFixed(2) : 0;
+    },
+
+    calculateTotalShares() {
+      let totalSharePerPerson = 0;
+      this.shareList.forEach((share) => {
+        totalSharePerPerson += Number(this.calculateShares(share.price, share.shareCount));
+      });
+
+      if (totalSharePerPerson) {
+        return totalSharePerPerson.toFixed(2);
+      }
     },
   },
   mounted() {
@@ -66,6 +75,7 @@ export default {
   flex-direction: column;
   padding: 32px;
   width: 100%;
+  min-height: 100%;
   background-color: #f0ecf0;
 
   &-list {
@@ -80,6 +90,10 @@ export default {
     }
 
     .bill-history-table {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+
       table {
         border-collapse: collapse;
         width: 100%;
@@ -126,7 +140,31 @@ export default {
           }
         }
         td {
-          padding: 4px 10px;
+          padding: 10px;
+        }
+      }
+
+      .total-shares {
+        margin-top: 30px;
+        display: flex;
+
+        span {
+          font-weight: bold;
+          padding: 8px 16px;
+          color: #08ac54;
+          text-align: right;
+
+          &:first-child {
+            flex-grow: 4;
+            text-transform: uppercase;
+          }
+
+          &:nth-child(2) {
+            flex-grow: 1;
+            padding-right: 16px;
+            background-color: #414141;
+            color: white;
+          }
         }
       }
     }

@@ -21,8 +21,6 @@
 
         <button type="submit">Submit</button>
       </div>
-
-      <p>{{ this.expenses.foodItem }}</p>
     </form>
   </div>
 </template>
@@ -44,10 +42,10 @@ export default {
   methods: {
     submitForm(e) {
       const isValidExpensesData =
-        this.expenses.dateOrdered &&
-        this.expenses.foodItem &&
-        this.expenses.price &&
-        this.expenses.shareCount;
+        this.expenses?.dateOrdered &&
+        this.expenses?.foodItem &&
+        this.expenses?.price &&
+        this.expenses?.shareCount;
 
       if (isValidExpensesData) {
         this.emitter.emit('emit-expenses', this.expenses);
@@ -90,6 +88,10 @@ export default {
         padding: 10px 4px;
         border: 2px solid #eee;
         transition: border 0.3s;
+
+        &[type='date'] {
+          font-family: inherit;
+        }
 
         &:focus {
           outline: none;
