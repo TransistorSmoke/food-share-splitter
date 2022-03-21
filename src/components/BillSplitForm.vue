@@ -26,6 +26,8 @@
 </template>
 
 <script>
+import OrderService from '@/services/OrderService';
+
 export default {
   name: 'BillSplitForm',
   data() {
@@ -54,6 +56,16 @@ export default {
         this.expenses = {};
       }
     },
+  },
+
+  created() {
+    OrderService.getOrders()
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   },
 };
 </script>

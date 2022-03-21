@@ -114,6 +114,7 @@ export default {
 
         td.tbl-cell-item {
           text-align: left;
+          text-transform: capitalize;
         }
       }
 
@@ -141,6 +142,15 @@ export default {
         }
         td {
           padding: 10px;
+          border: 1px solid #fff;
+
+          &:first-child {
+            border-left: none;
+          }
+
+          &:last-child {
+            border-right: none;
+          }
         }
       }
 
