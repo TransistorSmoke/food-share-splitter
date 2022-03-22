@@ -8,16 +8,16 @@
 
       <div class="bill-form-component">
         <label>Date</label>
-        <input type="date" v-model="expenses.dateOrdered" placeholder="Date Ordered" />
+        <input type="date" v-model="order.dateOrdered" placeholder="Date Ordered" />
 
         <label>Item</label>
-        <input v-model="expenses.foodItem" placeholder="Food item" />
+        <input v-model="order.foodItem" placeholder="Food item" />
 
         <label>Price</label>
-        <input v-model="expenses.price" placeholder="Price" />
+        <input v-model="order.price" placeholder="Price" />
 
         <label>People Sharing</label>
-        <input v-model="expenses.shareCount" placeholder="People Sharing" />
+        <input v-model="order.shareCount" placeholder="People Sharing" />
 
         <button type="submit">Submit</button>
       </div>
@@ -31,29 +31,39 @@ import OrderService from '@/services/OrderService';
 export default {
   name: 'BillSplitForm',
   data() {
+    // return {
+    //   expenses: {
+    //     dateOrdered: null,
+    //     foodItem: null,
+    //     price: null,
+    //     shareCount: null,
+    //   },
+    //   expensesList: [],
+    // };
+
     return {
-      expenses: {
+      order: {
         dateOrdered: null,
         foodItem: null,
         price: null,
         shareCount: null,
       },
-      expensesList: [],
+      orderList: [],
     };
   },
   methods: {
     submitForm(e) {
       const isValidExpensesData =
-        this.expenses?.dateOrdered &&
-        this.expenses?.foodItem &&
-        this.expenses?.price &&
-        this.expenses?.shareCount;
+        this.order?.dateOrdered &&
+        this.order?.foodItem &&
+        this.order?.price &&
+        this.order?.shareCount;
 
       if (isValidExpensesData) {
-        this.emitter.emit('emit-expenses', this.expenses);
+        this.emitter.emit('emit-expenses', this.order);
         e.target.reset();
         e.target.blur();
-        this.expenses = {};
+        this.order = {};
       }
     },
   },

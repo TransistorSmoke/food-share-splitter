@@ -62,8 +62,8 @@ export default {
     },
   },
   mounted() {
-    this.emitter.on('emit-expenses', (expense) => {
-      this.shareList = [...this.shareList, expense];
+    this.emitter.on('emit-expenses', (order) => {
+      this.shareList = [...this.shareList, order];
     });
   },
 };
