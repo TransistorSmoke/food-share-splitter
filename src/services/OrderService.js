@@ -11,9 +11,9 @@ export default {
     return apiClient.get('/orders');
   },
 
-  // saveOrders(order) {
-  //   if (order) {
-  //     apiClient.post('/')
-  //   }
-  // }
+  saveOrders(order) {
+    if (order) {
+      return apiClient.post('/orders');
+    }
+  },
 };

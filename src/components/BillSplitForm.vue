@@ -31,16 +31,6 @@ import OrderService from '@/services/OrderService';
 export default {
   name: 'BillSplitForm',
   data() {
-    // return {
-    //   expenses: {
-    //     dateOrdered: null,
-    //     foodItem: null,
-    //     price: null,
-    //     shareCount: null,
-    //   },
-    //   expensesList: [],
-    // };
-
     return {
       order: {
         dateOrdered: null,
@@ -64,19 +54,27 @@ export default {
         e.target.reset();
         e.target.blur();
         this.order = {};
+
+        OrderService.saveOrders()
+          .then((res) => {
+            console.log(res);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
       }
     },
   },
 
-  created() {
-    OrderService.getOrders()
-      .then((res) => {
-        console.log(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  },
+  // created() {
+  //   OrderService.getOrders()
+  //     .then((res) => {
+  //       console.log(res.data);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // },
 };
 </script>
 
