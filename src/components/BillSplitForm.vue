@@ -53,28 +53,20 @@ export default {
         this.emitter.emit('emit-expenses', this.order);
         e.target.reset();
         e.target.blur();
-        this.order = {};
 
-        OrderService.saveOrders()
+        // Save the order, clear the form
+        OrderService.saveOrder(this.order)
           .then((res) => {
             console.log(res);
           })
           .catch((err) => {
             console.log(err);
           });
+
+        this.order = {};
       }
     },
   },
-
-  // created() {
-  //   OrderService.getOrders()
-  //     .then((res) => {
-  //       console.log(res.data);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // },
 };
 </script>
 

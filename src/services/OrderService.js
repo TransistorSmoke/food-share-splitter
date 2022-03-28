@@ -6,14 +6,14 @@ const apiClient = axios.create({
 });
 
 export default {
-  getOrders() {
+  getOrder() {
     // console.log('hello world, hey there');
     return apiClient.get('/orders');
   },
 
-  saveOrders(order) {
+  saveOrder(order) {
     if (order) {
-      return apiClient.post('/orders');
+      return apiClient.post('/save', order);
     }
   },
 };
