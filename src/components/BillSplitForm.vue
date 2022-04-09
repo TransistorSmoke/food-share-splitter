@@ -6,18 +6,18 @@
         <p>Enjoy your food, then pay your share.</p>
       </div>
 
+      <div class="form-validation-message">
+        <p>Please fill out</p>
+      </div>
+
       <div class="bill-form-component">
         <label>Date</label>
-        <input type="date" v-model="order.dateOrdered" placeholder="Date Ordered" />
-
+        <input type="date" v-model="order.dateOrdered" placeholder="Date Ordered" max="" />
         <label>Item</label>
         <input v-model="order.foodItem" placeholder="Food item" />
 
         <label>Price</label>
         <input v-model="order.price" placeholder="Price" />
-
-        <label>People Sharing</label>
-        <input v-model="order.shareCount" placeholder="People Sharing" />
 
         <button type="submit">Submit</button>
       </div>
@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import OrderService from '@/services/OrderService';
+// import OrderService from '@/services/OrderService';
 
 export default {
   name: 'BillSplitForm',
@@ -36,18 +36,24 @@ export default {
         dateOrdered: null,
         foodItem: null,
         price: null,
-        shareCount: null,
       },
       orderList: [],
+      validForm: {
+        isInvalidDate: false,
+        isInvalidItem: false,
+        isInvalidPrice: false,
+      },
     };
   },
   methods: {
     submitForm(e) {
+      console.log(this.order);
+      console.log(this.order.dateOrdered);
+      console.log(this.order.foodItem);
+      console.log(this.order.price);
+
       const isValidExpensesData =
-        this.order?.dateOrdered &&
-        this.order?.foodItem &&
-        this.order?.price &&
-        this.order?.shareCount;
+        this.order?.dateOrdered && this.order?.foodItem && this.order?.price;
 
       if (isValidExpensesData) {
         this.emitter.emit('emit-expenses', this.order);
@@ -55,15 +61,17 @@ export default {
         e.target.blur();
 
         // Save the order, clear the form
-        OrderService.saveOrder(this.order)
-          .then((res) => {
-            console.log(res);
-          })
-          .catch((err) => {
-            console.log(err);
-          });
+        // OrderService.saveOrder(this.order)
+        //   .then((res) => {
+        //     console.log(res);
+        //   })
+        //   .catch((err) => {
+        //     console.log(err);
+        //   });
 
         this.order = {};
+      } else {
+        // Display validation messages or errors
       }
     },
   },
