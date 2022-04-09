@@ -1,5 +1,10 @@
 # food-bill-split
 
+Since we order food very frequently at home, I might as well track those spendings and each one's share.
+This calculates each person's bill share for the total amount of spending on food orders. 
+
+This frontend is created in Vue 3, HTML and CSS/SCSS.
+
 ## Project setup
 ```
 npm install
