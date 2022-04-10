@@ -9,6 +9,7 @@
       <div class="bill-form-component">
         <label>Date</label>
         <input type="date" v-model="order.dateOrdered" placeholder="Date Ordered" max="" />
+
         <label>Item</label>
         <input v-model="order.foodItem" placeholder="Food item" />
         <label>Price</label>
@@ -53,9 +54,9 @@ export default {
       },
       orderList: [],
       orderFormFields: {
-        isValidDate: false,
-        isValidItem: false,
-        isValidPrice: false,
+        isInvalidDate: false,
+        isInvalidItem: false,
+        isInvalidPrice: false,
       },
       isValidOrdersData: false,
     };
@@ -65,11 +66,15 @@ export default {
     submitForm(event) {
       this.isValidOrdersData = HelperService.validateForm(this.order, this.orderFormFields);
 
+      console.log('-----------------------');
+      console.log('Is valid form?', this.isValidOrdersData);
+      console.log('-----------------------');
+
       if (this.isValidOrdersData) {
         this.emitter.emit('emit-expenses', this.order);
         event.target.reset();
         event.target.blur();
-        // Save the order, clear the form
+        // Save the order....
         // OrderService.saveOrder(this.order)
         //   .then((res) => {
         //     console.log(res);
@@ -77,6 +82,8 @@ export default {
         //   .catch((err) => {
         //     console.log(err);
         //   });
+
+        // ....then clear the form
         this.order = {};
       }
     },

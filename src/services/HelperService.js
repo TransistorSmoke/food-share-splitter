@@ -1,7 +1,7 @@
 const resetFieldErrorFlags = (objFormFields) => {
   if (objFormFields) {
     Object.keys(objFormFields).forEach((key) => {
-      objFormFields[key] = null;
+      objFormFields[key] = false;
     });
   }
 };
@@ -15,28 +15,34 @@ export default {
 
     if (order) {
       // 1.) Validate date
-      if (order.dateOrdered && order.dateOrdered.toString().trim().length > 0) {
-        objFormFields.isValidDate = true;
+
+      if (!order.dateOrdered) {
+        objFormFields.isInvalidDate = true;
+        console.log('objFormFields.isInvalidDate: ', objFormFields.isInvalidDate);
       }
 
       // 2.) Validate item
-      if (order.foodItem && order.foodItem.trim().length > 0) {
-        objFormFields.isValidItem = true;
+      console.log('food item: ', order.foodItem);
+      if (!order.foodItem || order.foodItem.trim().length <= 0) {
+        objFormFields.isInvalidItem = true;
+        console.log('objFormFields.isInvalidItem: ', objFormFields.isInvalidItem);
       }
 
       // 3.) Validate price
-      if (order.price && (!isNaN(order.price) || order.price.trim().length > 0)) {
-        objFormFields.isValidPrice = true;
+      if (!order.price || isNaN(order.price) || order.price?.trim().length <= 0) {
+        objFormFields.isInvalidPrice = true;
+        console.log('objFormFields.isInvalidPrice: ', objFormFields.isInvalidPrice);
       }
     }
 
     // Used 'every' to simulate a 'break' for a falsy value of objFormFields[key] is encountered.
     formFieldKeys.every((key) => {
+      console.log(objFormFields[key]);
       if (objFormFields[key]) {
-        isValidForm = true;
-      } else {
         isValidForm = false;
         return false;
+      } else {
+        isValidForm = true;
       }
       return true;
     });
