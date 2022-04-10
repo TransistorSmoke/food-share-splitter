@@ -9,11 +9,21 @@
       <div class="bill-form-component">
         <label>Date</label>
         <input type="date" v-model="order.dateOrdered" placeholder="Date Ordered" max="" />
+        <p class="error-message" v-if="this.orderFormFields.isInvalidDate">
+          Please enter a valid date
+        </p>
 
         <label>Item</label>
         <input v-model="order.foodItem" placeholder="Food item" />
+        <p class="error-message" v-if="this.orderFormFields.isInvalidItem">
+          Please enter a valid item
+        </p>
+
         <label>Price</label>
         <input v-model="order.price" placeholder="Price" />
+        <p class="error-message" v-if="this.orderFormFields.isInvalidPrice">
+          Please enter a valid price
+        </p>
 
         <div class="share-paid-by">
           <div class="share-label">
@@ -66,10 +76,6 @@ export default {
     submitForm(event) {
       this.isValidOrdersData = HelperService.validateForm(this.order, this.orderFormFields);
 
-      console.log('-----------------------');
-      console.log('Is valid form?', this.isValidOrdersData);
-      console.log('-----------------------');
-
       if (this.isValidOrdersData) {
         this.emitter.emit('emit-expenses', this.order);
         event.target.reset();
@@ -110,12 +116,19 @@ export default {
   flex-direction: column;
   align-items: center;
 
+  .error-message {
+    margin: 0;
+    font-size: 0.75rem;
+    align-self: flex-start;
+    color: #ff4c46;
+  }
+
   label {
     display: flex;
     align-self: flex-start;
     width: 100%;
     font-weight: bold;
-    margin-top: 16px;
+    margin-top: 10px;
   }
 
   input {
