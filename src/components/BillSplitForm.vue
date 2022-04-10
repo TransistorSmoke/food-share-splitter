@@ -15,7 +15,6 @@
         <input type="date" v-model="order.dateOrdered" placeholder="Date Ordered" max="" />
         <label>Item</label>
         <input v-model="order.foodItem" placeholder="Food item" />
-
         <label>Price</label>
         <input v-model="order.price" placeholder="Price" />
 
@@ -26,40 +25,45 @@
 </template>
 
 <script>
-// import OrderService from '@/services/OrderService';
+import HelperService from '@/services/HelperService';
+// import RequestsService from '@/services/RequestsService';
 
 export default {
   name: 'BillSplitForm',
   data() {
     return {
+      name: null,
       order: {
         dateOrdered: null,
         foodItem: null,
         price: null,
       },
       orderList: [],
-      validForm: {
-        isInvalidDate: false,
-        isInvalidItem: false,
-        isInvalidPrice: false,
+      orderFormFields: {
+        isValidDate: false,
+        isValidItem: false,
+        isValidPrice: false,
       },
+      isValidOrdersData: false,
     };
   },
+
   methods: {
-    submitForm(e) {
-      console.log(this.order);
-      console.log(this.order.dateOrdered);
-      console.log(this.order.foodItem);
-      console.log(this.order.price);
+    submitForm(event) {
+      // console.log(this.order);
+      // console.log(this.order.dateOrdered);
+      // console.log(this.order.foodItem);
+      // console.log(this.order.price);
 
-      const isValidExpensesData =
-        this.order?.dateOrdered && this.order?.foodItem && this.order?.price;
+      // const isValidExpensesData =
+      //   this.order?.dateOrdered && this.order?.foodItem && this.order?.price;
 
-      if (isValidExpensesData) {
+      this.isValidOrdersData = HelperService.validateForm(this.order, this.orderFormFields);
+
+      if (this.isValidOrdersData) {
         this.emitter.emit('emit-expenses', this.order);
-        e.target.reset();
-        e.target.blur();
-
+        event.target.reset();
+        event.target.blur();
         // Save the order, clear the form
         // OrderService.saveOrder(this.order)
         //   .then((res) => {
@@ -68,10 +72,7 @@ export default {
         //   .catch((err) => {
         //     console.log(err);
         //   });
-
         this.order = {};
-      } else {
-        // Display validation messages or errors
       }
     },
   },
