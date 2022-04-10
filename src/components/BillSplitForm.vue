@@ -50,14 +50,6 @@ export default {
 
   methods: {
     submitForm(event) {
-      // console.log(this.order);
-      // console.log(this.order.dateOrdered);
-      // console.log(this.order.foodItem);
-      // console.log(this.order.price);
-
-      // const isValidExpensesData =
-      //   this.order?.dateOrdered && this.order?.foodItem && this.order?.price;
-
       this.isValidOrdersData = HelperService.validateForm(this.order, this.orderFormFields);
 
       if (this.isValidOrdersData) {
