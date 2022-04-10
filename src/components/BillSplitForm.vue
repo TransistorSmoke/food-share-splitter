@@ -98,22 +98,26 @@ export default {
        *   The method prevents the following actions when inputting on the PRICE field:
        *     - input of non-numeric characters EXCEPT for those listed in the array of allowed keys
        *     - input of the zero or fullstop character as a first character in the field
-       *     - pasting of non-numeric
        */
-      const allowedKeys = ['Backspace', 'Enter', 'ArrowRight', 'ArrowLeft', '.', 'Delete'];
+      const allowedKeys = [
+        'Backspace',
+        'Enter',
+        'ArrowRight',
+        'ArrowLeft',
+        '.',
+        'Delete',
+        'Meta',
+        'v',
+      ];
       const patternNumbers = /^\d+$/;
 
-      // Disable the inputting if the character is not a digit or not in the list of allowed keys
-      if (!patternNumbers.test(e.key) && allowedKeys.indexOf(e.key) === -1) {
+      if (
+        (!patternNumbers.test(e.key) && allowedKeys.indexOf(e.key) === -1) ||
+        ((e.key === '0' || e.key === '.') &&
+          (e.target.value.length === 0 || e.target.selectionStart === 0))
+      ) {
         e.preventDefault();
       }
-
-      // Disable the inputting of zero or fullstop as a first character
-      if ((e.key === '0' || e.key === '.') && e.target.value.length === 0) {
-        e.preventDefault();
-      }
-
-      // Prevent copy-paste here too
     },
   },
 };
