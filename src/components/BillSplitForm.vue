@@ -2,12 +2,8 @@
   <div class="bill-form-container">
     <form class="bill-form" @submit.prevent="submitForm($event)">
       <div class="bill-form-component">
-        <h1>Calculate Your Share</h1>
+        <h1>Enter Your Order Details</h1>
         <p>Enjoy your food, then pay your share.</p>
-      </div>
-
-      <div class="form-validation-message">
-        <p>Please fill out</p>
       </div>
 
       <div class="bill-form-component">
@@ -18,7 +14,24 @@
         <label>Price</label>
         <input v-model="order.price" placeholder="Price" />
 
-        <button type="submit">Submit</button>
+        <div class="share-paid-by">
+          <div class="share-label">
+            <p>Ordered by:</p>
+          </div>
+
+          <div class="share-select">
+            <div class="share-input-group">
+              <input type="radio" id="bb" name="paid-by" checked />
+              <label for="bb">BB</label>
+            </div>
+            <div class="share-input-group">
+              <input type="radio" id="ate" name="paid-by" />
+              <label for="ate">Ate</label>
+            </div>
+          </div>
+        </div>
+
+        <button class="submit" type="submit">Submit</button>
       </div>
     </form>
   </div>
@@ -82,64 +95,101 @@ export default {
 
   .bill-form {
     padding-bottom: 32px;
+  }
+}
 
-    .bill-form-component {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+.bill-form-component {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
+  label {
+    display: flex;
+    align-self: flex-start;
+    width: 100%;
+    font-weight: bold;
+    margin-top: 16px;
+  }
+
+  input {
+    width: 100%;
+    padding: 10px 4px;
+    border: 2px solid #eee;
+    transition: border 0.3s;
+
+    &[type='date'] {
+      font-family: inherit;
+    }
+
+    &:focus {
+      outline: none;
+      border: 2px solid #bddfcd;
+      transition: border 0.3s;
+    }
+  }
+
+  .submit {
+    border: none;
+    background-color: #f4807b;
+    color: white;
+    width: 100%;
+    height: 45px;
+    margin-top: 32px;
+    border-radius: 10px;
+    text-transform: uppercase;
+
+    font-size: 0.95rem;
+    font-weight: bold;
+    transition: background-color 0.3s;
+
+    &:hover {
+      background-color: #ff4c46;
+      transition: background-color 0.3s;
+    }
+  }
+
+  .form-price {
+    span {
+      display: inline-block;
+      border: 1px solid red;
+    }
+
+    input {
+      display: inline-block;
+    }
+  }
+
+  .share-paid-by {
+    border: 1px solid #f2f2f2;
+    background-color: #fff;
+    width: 100%;
+    margin-top: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .share-label p {
+      font-weight: bold;
+      margin-left: 8px;
+    }
+
+    .share-input-group {
+      display: inline-block;
+      margin-right: 8px;
+
+      &:first-child {
+        margin-right: 22px;
+      }
+
+      input,
       label {
-        display: flex;
-        align-self: flex-start;
-        width: 100%;
-        font-weight: bold;
-        margin-top: 16px;
+        display: inline;
+        width: auto;
+        font-weight: normal;
       }
 
       input {
-        width: 100%;
-        padding: 10px 4px;
-        border: 2px solid #eee;
-        transition: border 0.3s;
-
-        &[type='date'] {
-          font-family: inherit;
-        }
-
-        &:focus {
-          outline: none;
-          border: 2px solid #bddfcd;
-          transition: border 0.3s;
-        }
-      }
-
-      button {
-        border: none;
-        background-color: #f4807b;
-        color: white;
-        width: 100%;
-        height: 40px;
-        margin-top: 32px;
-
-        font-size: 0.95rem;
-        font-weight: bold;
-        transition: background-color 0.3s;
-
-        &:hover {
-          background-color: #ff4c46;
-          transition: background-color 0.3s;
-        }
-      }
-
-      .form-price {
-        span {
-          display: inline-block;
-          border: 1px solid red;
-        }
-
-        input {
-          display: inline-block;
-        }
+        margin-right: 4px;
       }
     }
   }
