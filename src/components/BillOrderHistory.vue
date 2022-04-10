@@ -90,12 +90,7 @@ export default {
       this.shareList = [...this.shareList, order];
     });
 
-    // Display all the data from the database into the table
-    // OrderService.getOrders()
-    //   .then((res) {
-
-    //   }console.log(res))
-    //   .catch((err) => console.log(err));
+    // Display all the data from the database into the table here
   },
 };
 </script>

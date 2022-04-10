@@ -7,7 +7,6 @@ const apiClient = axios.create({
 
 export default {
   getOrders() {
-    // console.log('hello world, hey there');
     return apiClient.get('/orders');
   },
 
